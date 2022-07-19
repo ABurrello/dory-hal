@@ -1,11 +1,11 @@
-#include <conv_2d.h>
+#include <digital_conv_2d.h>
 #include "utils.h"
 
 extern L2_DATA uint32_t configuration_register[16];
-extern L2_DATA Instruction_memory_object instruction_memory_compiled[2];
+extern L2_DATA Instruction_memory_object_digital instruction_memory_compiled_digital[2];
 
 // Warning: we already assume here that A and B have the same shape!
-int32_t conv_2d(const void *input_L2, 
+int32_t digital_conv_2d(const void *input_L2, 
                 const void *input,
                 const void *weights_L2,
                 const void *weights, 
@@ -21,8 +21,8 @@ int32_t conv_2d(const void *input_L2,
     hwme_conf_n_set(16);
     // STEP 2: definition and setting of the instruction memory
     //Instruction_memory_object *instruction_memory_compiled;
-    encoder_instruction_memory(mode, (uint32_t) input, (uint32_t) weights, (uint32_t) output, layer);
-    hwme_im_addr_set(instruction_memory_compiled);
+    digital_encoder_instruction_memory(mode, (uint32_t) input, (uint32_t) weights, (uint32_t) output, layer);
+    hwme_im_addr_set(instruction_memory_compiled_digital);
     hwme_im_n_set(64);
     hwme_act_addr_set((uint32_t) input_L2); 
     hwme_act_n_set(( layer->c * layer->cx * layer->cy ) / 4); 

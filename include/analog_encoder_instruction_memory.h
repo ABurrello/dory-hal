@@ -10,8 +10,7 @@ typedef enum Instruction_type {
 } Instruction_type;
 #endif
 
-void encoder_instruction_memory(
-    Instruction_type mode,
+void analog_encoder_instruction_memory(
     uint32_t pointer_input,
     uint32_t pointer_weights,
     uint32_t pointer_output,

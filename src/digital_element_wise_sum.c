@@ -1,8 +1,8 @@
-#include <element_wise_sum.h>
+#include <digital_element_wise_sum.h>
 #include "utils.h"
 
 extern L2_DATA uint32_t configuration_register[16];
-extern L2_DATA Instruction_memory_object instruction_memory_compiled[2];
+extern L2_DATA Instruction_memory_object_digital instruction_memory_compiled_digital[2];
 
 // Warning: we already assume here that A and B have the same shape!
 int32_t element_wise_sum(const void *input_L2, 
@@ -23,8 +23,8 @@ int32_t element_wise_sum(const void *input_L2,
 
     // STEP 2: definition and setting of the instruction memory
     //Instruction_memory_object *instruction_memory_compiled;
-    encoder_instruction_memory(mode, (uint32_t) inputA, (uint32_t) inputB, (uint32_t) output, layer);
-    hwme_im_addr_set(instruction_memory_compiled);
+    digital_encoder_instruction_memory(mode, (uint32_t) inputA, (uint32_t) inputB, (uint32_t) output, layer);
+    hwme_im_addr_set(instruction_memory_compiled_digital);
     hwme_im_n_set(64);
     // STEP 3: triggering of the operations
     // The pointer to the instruction memory.

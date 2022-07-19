@@ -8,7 +8,7 @@
 
 #ifndef INSTR_DIG_H
 #define INSTR_DIG_H
-typedef struct Instruction_memory_object {
+typedef struct Instruction_memory_object_digital {
     // Mode: 0 --> Stop Instruction
     //       1 --> Convolution
     //       2 --> TO DO
@@ -78,7 +78,78 @@ typedef struct Instruction_memory_object {
 // Because we are going to serialize this struct at some point, we have to make
 // sure that it is packed. That should be the default on the 32bits pulpissimo,
 // but since GCC enables it, lets'be explicit.
-} __attribute__((packed)) Instruction_memory_object;
+} __attribute__((packed)) Instruction_memory_object_digital;
+#endif
+
+#ifndef INSTR_ANALOG_H
+#define INSTR_ANALOG_H
+typedef struct Instruction_memory_object_analog {
+    // Bits: 0 --> Skip_pool
+    //       1 --> Skip_quant
+    //       2 --> Skip_act
+    //       3 --> Skip_res
+    //       4 --> Skip_BN
+    //       5 --> Skip_PS
+    //     6-7 --> Pool
+    //       8 --> Relu_type
+    uint16_t skips;
+    uint16_t reg1; 
+    // from 0x0: adress in L1 of max dimension 0x10000 
+    uint16_t input_memory_pointer;  
+    // from 0x0: adress in L1 of max dimension 0x10000 
+    uint16_t output_memory_pointer;
+    // from 0x0: adress in L1 of max dimension 0x10000 
+    uint16_t partial_sum_pointer;
+    // from 0x0: adress in L1 of max dimension 0x10000 
+    uint16_t residual_sum_pointer;
+    // from 0x0: adress in L1_weights of max dimension 0x10000 
+    uint16_t bn_pointer;
+    // input channels. 
+    uint16_t c;
+    // output channels.
+    uint16_t k;
+    // input activation dimension x
+    uint16_t cx;
+    // input activation dimension y
+    uint16_t cy;
+    // precision
+    uint16_t precision;
+    // Filter dimension y 3 bits empy, 5 bits pool, 4 fy, 4 fx
+    uint16_t pool_fy_fx;
+    // Output dimension x: 
+    uint16_t ox;
+    // Output dimension y
+    uint16_t oy;
+    // TODO
+    uint16_t ox_unroll;
+    // stride
+    uint16_t stride;
+    // padding 8 bits empty, down, top, right, left -- 2 bits each
+    uint16_t padding;
+    // ceil(input channels /64)
+    uint16_t processing_blocks;
+    // TODO
+    uint16_t complicated_register;
+    // ceil(output channels /32)
+    uint16_t use_blk_col;
+    //use default values 
+    uint16_t reg21;
+    // stop bit
+    uint16_t stop;
+    // set DEFAULT from this parameter
+    uint16_t reg23;
+    uint16_t reg24;
+    uint16_t reg25;
+    uint16_t reg26;
+    uint16_t reg27;
+    uint16_t reg28;
+    uint16_t reg29;
+    uint16_t reg30;
+    uint16_t reg31;
+// Because we are going to serialize this struct at some point, we have to make
+// sure that it is packed. That should be the default on the 32bits pulpissimo,
+// but since GCC enables it, lets'be explicit.
+} __attribute__((packed)) Instruction_memory_object_analog;
 #endif
 
 #ifndef LAYERPARAM_H
@@ -100,5 +171,12 @@ typedef struct Layer_parameters {
 } Layer_parameters;
 #endif
 
-void global_sync();
+void global_sync_digital();
+void global_sync_analog();
 
+
+static inline void init_boot_gpio();
+static inline void set_pin(int pin);
+static inline void reset_pin(int pin);
+static inline void wait_pin(int pin, int pol);
+void boot_diana();
