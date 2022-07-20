@@ -168,6 +168,7 @@ typedef struct Layer_parameters {
   uint32_t padding;
   uint32_t dilation;
   uint32_t stride;
+  uint32_t ox_unroll;
 } Layer_parameters;
 #endif
 
