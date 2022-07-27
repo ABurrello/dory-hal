@@ -24,7 +24,7 @@ void analog_encoder_instruction_memory(
     instruction_memory_compiled_analog[0].pool_fy_fx            = layer->fx + (layer->fy<<4);
     instruction_memory_compiled_analog[0].ox                    = layer->ox;
     instruction_memory_compiled_analog[0].oy                    = layer->oy;
-    instruction_memory_compiled_analog[0].ox_unroll             = 0x1;
+    instruction_memory_compiled_analog[0].ox_unroll             = layer->ox_unroll;
     instruction_memory_compiled_analog[0].stride                = layer->stride;
     instruction_memory_compiled_analog[0].padding               = layer->padding;
     instruction_memory_compiled_analog[0].processing_blocks     = (int)((layer->c+63)/64);
