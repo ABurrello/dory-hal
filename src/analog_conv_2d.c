@@ -16,6 +16,7 @@ int32_t analog_conv_2d(const void *input_L2,
     // Sending the configuration register with the hardware functions.
     configuration_register[0] = 0x3000000;
     configuration_register[1] = 0x303001f;
+    hwme_ana_memcpy_op((unsigned int) 0);
     hwme_ana_conf_addr_set((uint32_t) configuration_register);
     hwme_ana_conf_n_set(16);
     // STEP 2: definition and setting of the instruction memory
