@@ -35,7 +35,7 @@ void digital_encoder_instruction_memory(
             break;
         case EWS:
             instruction_memory_compiled_digital[0].mode                  = 3;
-            instruction_memory_compiled_digital[0].c                     = layer->c;
+            instruction_memory_compiled_digital[0].c                     = layer->c / DIG_HWPE_PARALLELISM;
             instruction_memory_compiled_digital[0].k                     = 0;
             instruction_memory_compiled_digital[0].cx                    = 0;
             instruction_memory_compiled_digital[0].cy                    = 0;

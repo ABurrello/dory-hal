@@ -10,10 +10,12 @@ int32_t digital_conv_2d(const void *input_L2,
                 const void *weights_L2,
                 const void *weights, 
                 void *output,
+                const int input_L1,
                 Layer_parameters * layer) {
     Instruction_type mode = CONV;
     // STEP 1: definition and setting of the configuration registers
     // Sending the configuration register with the hardware functions.
+    hwme_memcpy_op((unsigned int) 0);
     configuration_register[0] = 0x800;
     configuration_register[1] = 0xf;
     configuration_register[2] = 0x0;
@@ -24,8 +26,14 @@ int32_t digital_conv_2d(const void *input_L2,
     digital_encoder_instruction_memory(mode, (uint32_t) input, (uint32_t) weights, (uint32_t) output, layer);
     hwme_im_addr_set(instruction_memory_compiled_digital);
     hwme_im_n_set(64);
-    hwme_act_addr_set((uint32_t) input_L2); 
-    hwme_act_n_set(( layer->c * layer->cx * layer->cy ) / 4); 
+    if (input_L1) {
+        hwme_act_addr_set(0); 
+        hwme_act_n_set(0); 
+    }
+    else {
+        hwme_act_addr_set((uint32_t) input_L2); 
+        hwme_act_n_set(( layer->c * layer->cx * layer->cy ) / 4); 
+    }
     hwme_wt_conv_addr_set((uint32_t) weights_L2);
     hwme_wt_conv_n_set(( layer->c * layer->k * layer->fx * layer->fy + layer->k*4 ) /  4);
     // STEP 3: triggering of the operations

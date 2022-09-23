@@ -7,4 +7,5 @@ int32_t analog_conv_2d(const void *input_L2,
                 const void *batchnorm_L2,
                 const void *weights, 
                 void *output,
+                const int input_L1,
                 Layer_parameters * layer);

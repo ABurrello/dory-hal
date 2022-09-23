@@ -11,6 +11,7 @@ int32_t analog_conv_2d(const void *input_L2,
                 const void *batchnorm_L2,
                 const void *weights, 
                 void *output,
+                const int input_L1,
                 Layer_parameters * layer) {
     // STEP 1: definition and setting of the configuration registers
     // Sending the configuration register with the hardware functions.
@@ -23,8 +24,7 @@ int32_t analog_conv_2d(const void *input_L2,
     //Instruction_memory_object *instruction_memory_compiled;
     analog_encoder_instruction_memory((uint32_t) input, (uint32_t) weights, (uint32_t) output, layer);
     hwme_ana_im_addr_set(instruction_memory_compiled_analog);
-    hwme_ana_im_n_set(32);
-    //hwme_ana_act_n_set(( layer->c * layer->cx * layer->cy ) / 4); 
+    hwme_ana_im_n_set(32); 
     hwme_ana_wt_addr_set((uint32_t) weights_L2);
     hwme_ana_simd_addr_set((uint32_t) batchnorm_L2); // TO SET
     hwme_ana_act_n_set(0); 
