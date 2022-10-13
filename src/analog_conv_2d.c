@@ -1,4 +1,4 @@
-#include <analog_conv_2d.h>
+#include <kernels.h>
 #include "utils.h"
 
 extern L2_DATA uint32_t configuration_register[16];
@@ -11,7 +11,6 @@ int32_t analog_conv_2d(const void *input_L2,
                 const void *batchnorm_L2,
                 const void *weights, 
                 void *output,
-                const int input_L1,
                 Layer_parameters * layer) {
     // STEP 1: definition and setting of the configuration registers
     // Sending the configuration register with the hardware functions.

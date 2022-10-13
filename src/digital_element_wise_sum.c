@@ -1,4 +1,4 @@
-#include <digital_element_wise_sum.h>
+#include <kernels.h>
 #include "utils.h"
 
 extern L2_DATA uint32_t configuration_register[16];
