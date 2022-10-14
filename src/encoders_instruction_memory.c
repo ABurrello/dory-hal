@@ -117,7 +117,7 @@ void analog_encoder_instruction_memory(
     instruction_memory_compiled_analog[0].reg24                 = 0x0084;
     instruction_memory_compiled_analog[0].reg25                 = 0x0900;
     //instruction_memory_compiled_analog[0].reg26                 = 0x0000;
-    //instruction_memory_compiled_analog[0].reg27                 = 0x0000;
+    instruction_memory_compiled_analog[0].reg27                 = 0x0205;
     //instruction_memory_compiled_analog[0].reg28                 = 0x0000;
     //instruction_memory_compiled_analog[0].reg29                 = 0x0000;
     //instruction_memory_compiled_analog[0].reg30                 = 0x0000;
