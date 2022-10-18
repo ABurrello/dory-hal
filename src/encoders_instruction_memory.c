@@ -54,6 +54,26 @@ void digital_encoder_instruction_memory(
             instruction_memory_compiled_digital[0].write_l2_l1           = 2;
             instruction_memory_compiled_digital[0].conv_strided         = layer->stride;
             break;
+        case FC:
+            instruction_memory_compiled_digital[0].mode                  = 0;
+            instruction_memory_compiled_digital[0].c                     = layer->c / DIG_HWPE_PARALLELISM;
+            instruction_memory_compiled_digital[0].k                     = layer->k / DIG_HWPE_PARALLELISM;
+            instruction_memory_compiled_digital[0].cx                    = 0;
+            instruction_memory_compiled_digital[0].cy                    = 0;
+            instruction_memory_compiled_digital[0].padded_cx             = 0;
+            instruction_memory_compiled_digital[0].size_channel          = 0;
+            instruction_memory_compiled_digital[0].output_channel_size   = 0;
+            instruction_memory_compiled_digital[0].fx                    = 0;
+            instruction_memory_compiled_digital[0].fy                    = 0;
+            instruction_memory_compiled_digital[0].ox                    = 0;
+            instruction_memory_compiled_digital[0].oy                    = 0;
+            instruction_memory_compiled_digital[0].activation_function   = layer->activation_function;
+            instruction_memory_compiled_digital[0].dilation              = 1;
+            instruction_memory_compiled_digital[0].shift_fixed_point     = layer->output_shift;
+            instruction_memory_compiled_digital[0].zero_padding          = 0;
+            instruction_memory_compiled_digital[0].write_l2_l1           = 2;
+            instruction_memory_compiled_digital[0].conv_strided         = 0;
+            break;
         case EWS:
             instruction_memory_compiled_digital[0].mode                  = 3;
             instruction_memory_compiled_digital[0].c                     = layer->c / DIG_HWPE_PARALLELISM;

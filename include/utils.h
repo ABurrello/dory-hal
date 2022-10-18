@@ -9,7 +9,7 @@
 #ifndef INSTR_DIG_H
 #define INSTR_DIG_H
 typedef struct Instruction_memory_object_digital {
-    // Mode: 0 --> Stop Instruction
+    // Mode: 0 --> FC
     //       1 --> Convolution
     //       2 --> TO DO
     //       3 --> Element Wise Sum 

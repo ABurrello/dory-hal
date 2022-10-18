@@ -3,7 +3,7 @@
 #ifndef INSTR_TYPE_H
 #define INSTR_TYPE_H
 typedef enum Instruction_type {
-    STOP,            
+    FC,            
     CONV,
     DWCONV,
     TO_DO,
