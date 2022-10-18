@@ -28,7 +28,7 @@ int32_t digital_fully_connected(const void *input_L2,
     hwme_act_addr_set(0); 
     hwme_act_n_set(0); 
     hwme_wt_fc_addr_set((uint32_t) weights_L2);
-    hwme_wt_fc_n_set(( layer->c * layer->k + layer->k*4 ) /  4);
+    hwme_wt_fc_n_set(( layer->c * layer->k + layer->k*16 ) /  4);
     // STEP 3: triggering of the operations
     // The pointer to the instruction memory.
     hwme_trigger_job();
