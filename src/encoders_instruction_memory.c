@@ -110,10 +110,10 @@ void analog_encoder_instruction_memory(
     uint32_t pointer_output,
     Layer_parameters *layer
     ) {
-    instruction_memory_compiled_analog[0].skips                 = 0x029;
-    //instruction_memory_compiled_analog[0].reg1                  = 0x0;
-    instruction_memory_compiled_analog[0].input_memory_pointer  = pointer_input;
-    instruction_memory_compiled_analog[0].output_memory_pointer = pointer_output;
+    instruction_memory_compiled_analog[0].skips                 = 0x003F;
+    //instruction_memory_compiled_analog[0].reg1                  = 0x0000;
+    instruction_memory_compiled_analog[0].input_memory_pointer  = (int)(pointer_input/16);
+    instruction_memory_compiled_analog[0].output_memory_pointer = (int)(pointer_output/16);
     //instruction_memory_compiled_analog[0].partial_sum_pointer   = 0x0;
     //instruction_memory_compiled_analog[0].residual_sum_pointer  = 0x0;
     //instruction_memory_compiled_analog[0].bn_pointer            = 0x0;
@@ -131,13 +131,13 @@ void analog_encoder_instruction_memory(
     instruction_memory_compiled_analog[0].processing_blocks     = (int)((layer->c+63)/64);
     instruction_memory_compiled_analog[0].complicated_register  = 0x2005;
     instruction_memory_compiled_analog[0].use_blk_col           = 0xFFFF;
-    instruction_memory_compiled_analog[0].reg21                 = 0x0000;
+    instruction_memory_compiled_analog[0].reg21                 = 0x0100;
     instruction_memory_compiled_analog[0].stop                  = 0xF000;
     //instruction_memory_compiled_analog[0].reg23                 = 0x0000;
     instruction_memory_compiled_analog[0].reg24                 = 0x0084;
     instruction_memory_compiled_analog[0].reg25                 = 0x0900;
     //instruction_memory_compiled_analog[0].reg26                 = 0x0000;
-    instruction_memory_compiled_analog[0].reg27                 = 0x0205;
+    instruction_memory_compiled_analog[0].reg27                 = 0x0000;
     //instruction_memory_compiled_analog[0].reg28                 = 0x0000;
     //instruction_memory_compiled_analog[0].reg29                 = 0x0000;
     //instruction_memory_compiled_analog[0].reg30                 = 0x0000;
