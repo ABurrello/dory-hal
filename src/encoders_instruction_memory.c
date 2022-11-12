@@ -130,12 +130,12 @@ void analog_encoder_instruction_memory(
     instruction_memory_compiled_analog[0].padding               = layer->padding;
     instruction_memory_compiled_analog[0].processing_blocks     = (int)((layer->c+63)/64);
     instruction_memory_compiled_analog[0].complicated_register  = 0x2005;
-    instruction_memory_compiled_analog[0].use_blk_col           = ((unsigned int) 0xFFFF) >> (16 - (int)((layer->k+31)/32));
+    instruction_memory_compiled_analog[0].use_blk_col           = ((unsigned int) 0xFFFF) << (16 - (int)((layer->k+31)/32));
     instruction_memory_compiled_analog[0].reg21                 = 0x0100;
     instruction_memory_compiled_analog[0].stop                  = 0xF000;
     //instruction_memory_compiled_analog[0].reg23                 = 0x0000;
     instruction_memory_compiled_analog[0].reg24                 = 0x0084;
-    instruction_memory_compiled_analog[0].reg25                 = 0x0900;
+    instruction_memory_compiled_analog[0].reg25                 = (int)(((layer->c * layer->fx * layer->fy * 2)+31)/32);
     //instruction_memory_compiled_analog[0].reg26                 = 0x0000;
     instruction_memory_compiled_analog[0].reg27                 = 0x0000;
     //instruction_memory_compiled_analog[0].reg28                 = 0x0000;
