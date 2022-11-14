@@ -135,7 +135,7 @@ void analog_encoder_instruction_memory(
     instruction_memory_compiled_analog[0].stop                  = 0xF000;
     //instruction_memory_compiled_analog[0].reg23                 = 0x0000;
     instruction_memory_compiled_analog[0].reg24                 = 0x0084;
-    instruction_memory_compiled_analog[0].reg25                 = (int)(((layer->c * layer->fx * layer->fy * 2)+31)/32);
+    instruction_memory_compiled_analog[0].reg25                 = (int)(((layer->c * layer->fx * layer->fy * 2)+31)/32)*32;
     //instruction_memory_compiled_analog[0].reg26                 = 0x0000;
     instruction_memory_compiled_analog[0].reg27                 = 0x0000;
     //instruction_memory_compiled_analog[0].reg28                 = 0x0000;
