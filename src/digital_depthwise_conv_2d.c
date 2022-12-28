@@ -14,7 +14,6 @@ int32_t digital_depthwise_conv_2d(const void *input_L2,
     Instruction_type mode = DWCONV;
     // STEP 1: definition and setting of the configuration registers
     // Sending the configuration register with the hardware functions.
-    hwme_memcpy_op((unsigned int) 0);
     configuration_register[0] = 0x800;
     configuration_register[1] = 0xf;
     configuration_register[2] = 0x0;
@@ -24,25 +23,29 @@ int32_t digital_depthwise_conv_2d(const void *input_L2,
     //Instruction_memory_object *instruction_memory_compiled;
     for(int i = 0; i < layer->c; i++)
     {
-        //digital_encoder_instruction_memory(mode, (uint32_t) input + i*layer->cx*layer->cy, (uint32_t) weights + i*layer->fx*layer->fy*16, (uint32_t) output + i*layer->ox*layer->oy, layer);
-        digital_encoder_instruction_memory(mode, (uint32_t) input, (uint32_t) weights, (uint32_t) output, layer);
-        hwme_im_addr_set(instruction_memory_compiled_digital);
-        hwme_im_n_set(64);
-        hwme_act_addr_set(0); 
-        hwme_act_n_set(0); 
-        if (i==0) {
-            hwme_wt_conv_addr_set((uint32_t) weights_L2);
-            //hwme_wt_conv_n_set(( 16 * layer->k * layer->fx * layer->fy + layer->k*4 ) /  4);
-            hwme_wt_conv_n_set(( layer->k * layer->fx * layer->fy + layer->k*4 ) /  4);
-        }
-        else {
-            hwme_wt_conv_addr_set(0);
-            hwme_wt_conv_n_set(0);
-        }
-        // STEP 3: triggering of the operations
-        // The pointer to the instruction memory.
-        hwme_trigger_job();
-        global_sync_digital();
+            hwme_memcpy_op((unsigned int) 0);
+            hwme_act_addr_set(input_L2);
+            hwme_act_n_set(0);
+            digital_encoder_instruction_memory(mode, (uint32_t) (input + i*layer->cx*layer->cy), (uint32_t) (weights), (uint32_t) (output + i*layer->ox*layer->oy), layer);
+            // digital_encoder_instruction_memory(mode, (uint32_t) input, (uint32_t) weights, (uint32_t) output, layer);
+            hwme_im_addr_set(instruction_memory_compiled_digital);
+            hwme_im_n_set(64);
+            hwme_act_addr_set(0); 
+            hwme_act_n_set(0); 
+            hwme_wt_conv_addr_set((uint32_t) (((uint32_t) weights_L2) + i * ( 16 * layer->fx * layer->fy + 16 * 4 )));
+            hwme_wt_conv_n_set(( 16 * layer->fx * layer->fy + 16 * 4 ) /  4);
+        //     if (i==0) {
+        //         hwme_wt_conv_addr_set((uint32_t) weights_L2);
+        //         hwme_wt_conv_n_set(( 16 * layer->k * layer->fx * layer->fy + layer->k * 4 * 16 ) /  4);
+        //     }
+        //     else {
+        //         hwme_wt_conv_addr_set(0);
+        //         hwme_wt_conv_n_set(0);
+        //     }
+            // STEP 3: triggering of the operations
+            // The pointer to the instruction memory.
+            hwme_trigger_job();
+            global_sync_digital();
     }
     // Using the pulp specific function to diable the HWME accelerator.
     return 0;
