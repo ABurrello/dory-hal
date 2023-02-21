@@ -21,6 +21,7 @@ int32_t digital_depthwise_conv_2d(const void *input_L2,
     hwme_conf_n_set(16);
     // STEP 2: definition and setting of the instruction memory
     //Instruction_memory_object *instruction_memory_compiled;
+    int j = 0; int z = 0;
     for(int i = 0; i < layer->c; i++)
     {
             hwme_memcpy_op((unsigned int) 0);
@@ -32,7 +33,14 @@ int32_t digital_depthwise_conv_2d(const void *input_L2,
             hwme_im_n_set(64);
             hwme_act_addr_set(0); 
             hwme_act_n_set(0); 
-            hwme_wt_conv_addr_set((uint32_t) (((uint32_t) weights_L2) + i * ( 16 * layer->fx * layer->fy + 16 * 4 )));
+            // hwme_wt_conv_addr_set((uint32_t) (((uint32_t) weights_L2) + i * ( 16 * layer->fx * layer->fy + 16 * 4 )));
+            hwme_wt_conv_addr_set((uint32_t) (((uint32_t) weights_L2) + j * ( 4 ) + z * (16 * layer->fx * layer->fy + 16 * 4)));
+            j+=1;
+            if (j == 4)
+            {
+                j = 0;
+                z += 1;
+            }
             hwme_wt_conv_n_set(( 16 * layer->fx * layer->fy + 16 * 4 ) /  4);
         //     if (i==0) {
         //         hwme_wt_conv_addr_set((uint32_t) weights_L2);
