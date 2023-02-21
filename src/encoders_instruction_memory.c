@@ -89,7 +89,7 @@ void digital_encoder_instruction_memory(
             instruction_memory_compiled_digital[0].oy                    = 0;
             instruction_memory_compiled_digital[0].activation_function   = 0;
             instruction_memory_compiled_digital[0].dilation              = 0;
-            instruction_memory_compiled_digital[0].shift_fixed_point     = 0;
+            instruction_memory_compiled_digital[0].shift_fixed_point     = layer->output_shift;
             instruction_memory_compiled_digital[0].zero_padding          = 0;
             instruction_memory_compiled_digital[0].write_l2_l1           = 0;
             instruction_memory_compiled_digital[0].conv_strided          = 0;
