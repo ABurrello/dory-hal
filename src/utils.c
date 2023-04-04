@@ -1,4 +1,5 @@
 #include "utils.h"
+#define DELAY 200000000
 
 L2_DATA uint32_t configuration_register[16] = {0};
 L2_DATA Instruction_memory_object_analog instruction_memory_compiled_analog[2] = {0};
@@ -108,8 +109,7 @@ static inline void wait_pin(int pin, int pol){
     }
 }
 
-void boot_diana(){
-
+void __attribute__((noinline, optimize("O0"))) boot_diana(){
   //----------------SIZING THE .H DATA--------------------------------
   volatile int size_array_cr_ania=sizeof(cra_boot)/sizeof(cra_boot[0]);
 
@@ -134,4 +134,9 @@ void boot_diana(){
   global_sync_analog();
   reset_pin(17);
   wait_pin(18,0);
+  // Wait a while
+  for(int i = 0; i < DELAY; i++){
+    // do nothing!
+    ;
+  }
 }
